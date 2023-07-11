@@ -1,8 +1,6 @@
 
 Creator: Quanbin Dong (for questions, please contact: qbdong@stu.njmu.edu.cn)
 
-Year: 2022-2023
-
 Current status: ongoing...
 
 Detail:
