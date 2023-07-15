@@ -1,1 +1,21 @@
+### main codes for SNV analysis
+
+## 1. Filter bins of medium quality based on the criteria according to the results obtained from checkm: completeness ≥50%, contamination <10%.
+
+## 2. cluster the medium quality genomes at species level
+dRep dereplicate output  -g input/*.fa  --S_algorithm fastANI --multiround_primary_clustering  --greedy_secondary_clustering -ms 10000 -pa 0.9 -sa 0.95 -nc 0.30 -cm larger -p 24
+
+## 3. SNV_identification
+## 3.1 make a scaffold-to-bin file
+parse_stb.py --reverse -f input/* -o trackDC.stb
+## 3.2 build index
+bowtie2-build trackDC.fa trackDC --large-index --threads ${threads}
+## 3.3 get bam file
+bowtie2 -p ${threads} -x trackDC -1 ${dir}/${sample}_1.fastq.gz -2 ${dir}/${sample}_2.fastq.gz | samtools sort -@ ${threads} -O bam -o - > bam/${sample}.bam
+## 3.4 get SNV file
+inStrain profile bam/${sample}.bam trackDC.fa -o instrain/${sample} -p ${threads} -g trackDC_genes.fna -s trackDC.stb --database_mode
+
+
+
+
 
