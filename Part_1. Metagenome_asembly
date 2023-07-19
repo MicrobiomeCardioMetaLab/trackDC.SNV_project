@@ -1,5 +1,3 @@
-### main codes for metagenome assembly, for questions, please contact Quanbin Dong (qbdong@stu.njmu.edu.cn)
-
 ## Configure related soft and path
 dir=./
 export PATH=~/soft/Trimmomatic-0.33:$PATH
