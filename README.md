@@ -1,6 +1,3 @@
-
-Creator: Quanbin Dong (for questions, please contact: qbdong@stu.njmu.edu.cn)
-
 Current status: ongoing...
 
 Detail:
