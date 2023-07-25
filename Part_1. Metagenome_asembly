@@ -2,9 +2,6 @@
 dir=./
 export PATH=~/soft/Trimmomatic-0.33:$PATH
 KNEADDATA_DB_HUMAN_GENOME=~/database/kneaddata/Homo_sapiens
-humann_config --update database_folders utility_mapping ~/database/humann/utility_mapping
-humann_config --update database_folders protein ~/database/humann/uniref
-humann_config --update database_folders nucleotide ~/database/humann/chocophlan
 
 ## step_1 remove host-contaminated sequences
 echo "# step_1.1 kneadata...."
