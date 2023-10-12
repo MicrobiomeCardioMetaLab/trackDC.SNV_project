@@ -4,6 +4,10 @@ library("ggplot2")
 ggplot(df,aes(x=day, y=dis, color=group)) + geom_violin(position=position_dodge(0.9)) + geom_boxplot(position=position_dodge(0.9)) + geom_dotplot( position=position_dodge(0.9)) + scale_color_manual(values = c('#eb6f5f', '#71c9dd', '#33b39f')) + stat_compare_means(aes(group = group), label = "p.format", size = 7)
   
 # The code for Figure B is as follows:
+df <- read.csv('Fig2B.csv', header=T)
+df_1535 <- subset(df, df$day=='15-35')
+df_3556 <- subset(df, df$day=='35-56')
+df_1556 <- subset(df, df$day=='15-56')
 p1 <- ggplot(df_1535, aes(x=mag, y=dis, fill=class)) + geom_boxplot(position=position_dodge(0.45)) + scale_fill_manual(values = c('#eb6f5f', '#71c9dd', '#33b39f')) + ylim(0, 200) + coord_flip() + stat_compare_means(aes(group = class), label = "p.signif", size = 5)
 p2 <- ggplot(df_3556, aes(x=mag, y=dis, fill=class)) + geom_boxplot(position=position_dodge(0.45)) + scale_fill_manual(values = c('#eb6f5f', '#71c9dd', '#33b39f')) + ylim(0, 200) + coord_flip() + stat_compare_means(aes(group = class), label = "p.signif", size = 5)
 p3 <- ggplot(df_1556, aes(x=mag, y=dis, fill=class)) + geom_boxplot(position=position_dodge(0.45)) + scale_fill_manual(values = c('#eb6f5f', '#71c9dd', '#33b39f')) + ylim(0, 200) + coord_flip() + stat_compare_means(aes(group = class), label = "p.signif", size = 5)
