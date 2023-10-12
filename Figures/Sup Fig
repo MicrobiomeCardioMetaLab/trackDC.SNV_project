@@ -1,0 +1,16 @@
+## Figure S1AB
+
+ggplot(FigS1A, aes(class, mag_sum, color=day)) + geom_boxplot(position=position_dodge(0.7)) +   geom_dotplot(position=position_dodge(0.7)) + scale_color_manual(values = c('#eb6f5f', '#71c9dd', '#33b39f'))
+ggplot(FigS1B, aes(class, mag_sum, color=day)) + geom_boxplot(position=position_dodge(0.7)) +   geom_dotplot(position=position_dodge(0.7)) + scale_color_manual(values = c('#eb6f5f', '#71c9dd', '#33b39f'))
+
+## Figure S3 (for a single mag)
+df <- read.csv(paste0("GUT_GENOME148897.distmat.txt"),sep = "\t",check.names = F, header = 1)
+df$group[which(df$group=='1_2')] = 'CON'
+df$group[which(df$group=='1_3')] = 'CON'
+df$group[which(df$group=='2_1')] = 'RMT'
+df$group[which(df$group=='2_3')] = 'RMT'
+df$group[which(df$group=='3_1')] = 'RFT'
+df$group[which(df$group=='3_2')] = 'RFT'
+df_day <- subset(df, df$group=='CON' | df$group=='RMT' | df$group=='RFT')
+df_day$group <- factor(df_day$group, levels = c('CON', 'RMT', 'RFT'))
+ggplot(df_day,aes(x=group, y=dis, color=group)) + geom_boxplot(aes(color=group), position=position_dodge(0.9),outlier.color = NA) + geom_dotplot(position=position_dodge(0.9)) + scale_color_manual(values = c('#eb6f5f', '#71c9dd', '#33b39f')) +stat_compare_means(aes(group = group), label = "p.format", size = 2)
