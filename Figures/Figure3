@@ -1,0 +1,19 @@
+
+## Figure F G H I
+process_data <- function(input_file) {
+  GUT <- read.csv(input_file, header = F)
+  df_head <- read.csv('head', header = T)
+  colnames(GUT) <- colnames(df_head)
+  
+  GUTpos <- data.frame(str_split_fixed(GUT$snv, '_', 5))
+  colnames(GUTpos) <- c('A', 'B', 'scaffold', 'postion', 'base')
+  GUTsnp1 <- unite(GUTpos, "snp1", A, B, scaffold, postion, sep = '_')
+  GUTdat <- cbind(GUTpos[,c('scaffold', 'postion')], GUT, GUTsnp1)
+
+  GUT_p <- GUTdat[order(GUTdat$scaffold, GUTdat$postion), ]
+  GUT_p$pos <- as.numeric(as.factor(GUT_p$snp))
+  GUT_p$log_p <- -log10(GUT_p$p_var)
+  
+  return(GUT_p)
+}
+p <- ggplot(process_data('F48_35.35_snvSite.csv'), aes(x=pos, y=log_p)) + geom_line(color='grey70', size=0.002)   
