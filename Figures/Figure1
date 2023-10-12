@@ -1,0 +1,13 @@
+## This part of code primarily corresponds to Figure 1 in the main text.
+# The Figure A is a flowchart, primarily created in the PowerPoint presentation.
+# The Figure B represents the comparison results with other databases, mainly created in the PowerPoint presentation.
+# The Figure C was primarily created using iTOL (https://itol.embl.de/).
+# The code for Figure D is as follows:
+library("ggplot2")
+df <- read.csv("new_sp_function.xls", header = T,sep="\t")
+df <- df[1:18, ]
+ggplot(df, aes(x=reorder(prokka, percent) , y=percent, fill=count_num)) +
+  geom_point(size=2, color='#36282b', fill="#eb6f5f", alpha = 0.8, shape=21) +
+  scale_size_continuous(range = c(0.5,10)) +
+  labs(x="",y= 'percent',title="",fill= "") +
+  coord_flip() 
