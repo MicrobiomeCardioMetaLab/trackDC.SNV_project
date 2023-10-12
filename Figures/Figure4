@@ -1,0 +1,24 @@
+library('stringr')
+
+all=read.delim("Fig4_1.xls",header = T,sep = "\t")
+all=all[order(all$pvalue_snp2meta,decreasing = F),]
+all$taxa=str_split_fixed(str_split_fixed(all$tax,"g__",2)[,2],";s__",2)[,1]
+length(unique(all$taxa))
+tmp=data.frame(table(all$taxa))
+tmp=tmp[order(tmp$Freq,decreasing = T),]
+tmp$chr=1:nrow(tmp)
+tmp$chr[which(tmp$Freq<sum(tmp$Freq)*0.01)[1]:nrow(tmp)]=which(tmp$Freq<sum(tmp$Freq)*0.01)[1]
+all=merge(tmp[,c(1,3)],all,by.x = "Var1",by.y = "taxa",all = T)
+colnames(all)[1]="order"
+all=all[order(all$snp_site),]
+all$pos=NA
+for (i in 1:max(all$chr)) {
+  all$pos[which(all$chr==i)]=as.numeric(as.factor(all$snp_site[which(all$chr==i)]))
+}
+
+annotation=all[which(all$qvalue_snp2meta<0.05),]
+
+ann=annotateSNPRegions(all$snp,all$chr,all$pos,all$pvalue_snp2meta,as.character(annotation$snp),labels=as.character(annotation$id),col = c("#33b39f","#71c9dd","#eb6f5f"),kbaway = 0)
+pdf("./figure_manhattan_snp.meta.pdf",height = 6,width = 12,useDingbats = F)
+
+
