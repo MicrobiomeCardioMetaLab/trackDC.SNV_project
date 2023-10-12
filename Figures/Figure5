@@ -1,0 +1,12 @@
+## Figure A
+library('ggalluvial')
+df <- read.table('snv_meta_pheno.txt', sep='\t', header = 1)
+ggplot(df, aes(axis1=SNV, axis2=meta, axis3=pheno, y=cor)) + geom_alluvium(aes(fill=pheno),cex=0.8) + geom_stratum() + guides(fill=FALSE) + scale_x_discrete(limits=c('SNV', 'meta', 'pheno'), expand = c(0,0)) 
+
+
+## Figure B C
+p1 <-  ggplot(dat, aes(x=F73_15.69_31314_1086_T, y=Com_7309_pos)) + geom_boxplot(position=position_dodge(0.7), outlier.colour = NA) + geom_dotplot(position=position_dodge(0.7)) + scale_fill_manual(values = c('#eb6f5f', '#71c9dd')) 
+p2 <- ggplot(df, aes(x=Com_7309_pos, y=TotalAntioxidantCapacity)) + geom_point() + geom_smooth(method = "lm") + stat_cor(data=df, method = "spearman")
+p <- grid.arrange(p1,p2,ncol=4,nrow = 3)
+
+##The protein structures in Figure D and E were generated using Pymol (https://pymol.org/2/).
