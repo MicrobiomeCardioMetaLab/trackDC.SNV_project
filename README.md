@@ -1,8 +1,6 @@
-Current status: ongoing...
+Current status: in press at The ISME Journal
 
 Detail:
-
-Links:
 
 Published version:
 
